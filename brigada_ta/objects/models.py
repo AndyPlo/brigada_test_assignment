@@ -97,7 +97,7 @@ class Object(models.Model):
         on_delete=models.SET_NULL,
         blank=True,
         null=True,
-        related_name='objects',
+        related_name='object_list',
         verbose_name='Бригада'
     )
     city = models.ForeignKey(
@@ -105,7 +105,7 @@ class Object(models.Model):
         on_delete=models.SET_NULL,
         blank=True,
         null=True,
-        related_name='objects',
+        related_name='object_list',
         verbose_name='Город'
     )
 

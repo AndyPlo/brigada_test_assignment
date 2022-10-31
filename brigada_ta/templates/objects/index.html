@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}    
+  Список объектов
+{% endblock %}
+
+{% block content %}
+<article>
+  <div class="card bg-light mb-3">
+    <div class="card-body">
+      <form method="post">
+      {% csrf_token %}
+        <div class="form-group">
+          <label for="exampleSelect1" class="form-label mt-4">Список городов</label>
+            <select name="city" class="form-select" id="exampleSelect1">
+              {% if selected_city == "" %}
+                <option selected value="">-- выберите город --</option>
+              {% endif %}
+              {% for city in cities %}
+                <option value="{{ city.city_name }}"
+                  {% if selected_city == city.city_name %}
+                    selected="selected"
+                  {% endif %}
+                >{{ city.city_name }}</option>
+              {% endfor %}
+            </select>
+          <input class="btn btn-outline-secondary my-3" type="submit" value="Выбрать город">
+        </div>
+
+        <div class="form-group">
+          <label for="exampleSelect1" class="form-label mt-4">Список бригад</label>
+            <select name="brigada" class="form-select" id="exampleSelect1">
+              {% if selected_brigada == "-- выберите бригаду --" %}
+                <option selected value="">-- выберите бригаду --</option>
+              {% endif %}
+              {% for brigada in brigadas %}
+                <option value="{{ brigada.brigada_name }}"
+                  {% if selected_brigada == brigada.brigada_name %}
+                    selected="selected"
+                  {% endif %}
+                >{{ brigada.brigada_name }}</option>
+              {% endfor %}
+            </select>
+          <input class="btn btn-outline-secondary my-3" type="submit" value="Выбрать бригаду">
+        </div>
+
+        <div class="form-group">
+          <label for="exampleSelect1" class="form-label mt-4">Список объектов</label>
+            <select name="object" class="form-select" id="exampleSelect1">
+              {% if selected_object == "-- выберите объект --" %}
+                <option selected value="">-- выберите объект --</option>
+              {% endif %}>
+              {% for object in object_list %}
+                <option value="{{ object.object_name }}"
+                  {% if selected_object == object.object_name %}
+                    selected="selected"
+                  {% endif %}
+                >{{ object.object_name }}</option>
+              {% endfor %}
+            </select>
+          <input class="btn btn-outline-secondary my-3" type="submit" value="Выбрать объект">
+          {% if selected_object != "-- выберите объект --" and selected_object != "" %}
+            <h1>!!!</h1>
+          {% endif %}
+        </div>
+      </form>
+    </div>
+  </div>
+</article>
+{% endblock %} 
