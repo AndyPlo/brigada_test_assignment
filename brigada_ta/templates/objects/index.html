@@ -11,10 +11,10 @@
       <form method="post">
       {% csrf_token %}
         <div class="form-group">
-          <label for="exampleSelect1" class="form-label mt-4">Список городов</label>
+          <label for="exampleSelect1" class="form-label mt-4"></label>
             <select name="city" class="form-select" id="exampleSelect1">
-              {% if selected_city == "" %}
-                <option selected value="">-- выберите город --</option>
+              {% if selected_city == "-- выберите город --" %}
+                <option selected value="-- выберите город --">-- выберите город --</option>
               {% endif %}
               {% for city in cities %}
                 <option value="{{ city.city_name }}"
@@ -28,10 +28,10 @@
         </div>
 
         <div class="form-group">
-          <label for="exampleSelect1" class="form-label mt-4">Список бригад</label>
+          <label for="exampleSelect1" class="form-label mt-4"></label>
             <select name="brigada" class="form-select" id="exampleSelect1">
               {% if selected_brigada == "-- выберите бригаду --" %}
-                <option selected value="">-- выберите бригаду --</option>
+                <option selected value="-- выберите бригаду --">-- выберите бригаду --</option>
               {% endif %}
               {% for brigada in brigadas %}
                 <option value="{{ brigada.brigada_name }}"
@@ -42,14 +42,53 @@
               {% endfor %}
             </select>
           <input class="btn btn-outline-secondary my-3" type="submit" value="Выбрать бригаду">
+          {% if selected_brigada != "-- выберите бригаду --" and selected_brigada != "" %}
+            {% for brigada in brigadas %}
+              {% if selected_brigada == brigada.brigada_name %}
+                <div class="row align-items-center">
+                  <div class="col">
+                    <div class="card bg-light mb-3" style="max-width: 20rem;">
+                      <div class="card-body">
+                        <p class="card-text">Количество человек: {{ brigada.people_amount }}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="card bg-light mb-3" style="max-width: 20rem;">
+                      <div class="card-body">
+                        <p class="card-text">ФИО ответственного: {{ brigada.name_responsible }}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="card bg-light mb-3" style="max-width: 20rem;">
+                      <div class="card-body">
+                        <p class="card-text">Должность: {{ brigada.position_responsible }}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="card bg-light mb-3" style="max-width: 20rem;">
+                      <div class="card-body">
+                        <p class="card-text">Разряд: {{ brigada.rank_responsible }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
         </div>
 
         <div class="form-group">
-          <label for="exampleSelect1" class="form-label mt-4">Список объектов</label>
+          <label for="exampleSelect1" class="form-label mt-4"></label>
             <select name="object" class="form-select" id="exampleSelect1">
               {% if selected_object == "-- выберите объект --" %}
-                <option selected value="">-- выберите объект --</option>
-              {% endif %}>
+                <option selected value="-- выберите объект --">-- выберите объект --</option>
+              {% endif %}
+              {% if selected_object == "-- нет доступных объектов --" %}
+                <option selected value="-- выберите объект --">-- нет доступных объектов --</option>
+              {% endif %}
               {% for object in object_list %}
                 <option value="{{ object.object_name }}"
                   {% if selected_object == object.object_name %}
@@ -59,8 +98,41 @@
               {% endfor %}
             </select>
           <input class="btn btn-outline-secondary my-3" type="submit" value="Выбрать объект">
-          {% if selected_object != "-- выберите объект --" and selected_object != "" %}
-            <h1>!!!</h1>
+          {% if selected_object != "-- выберите объект --" and selected_object != "-- нет доступных объектов --" %}
+            {% for object in object_list %}
+              {% if selected_object == object.object_name %}
+                <div class="row align-items-center">
+                  <div class="col">
+                    <div class="card bg-light mb-3" style="max-width: 20rem;">
+                      <div class="card-body">
+                        <p class="card-text">Количество человек: {{ object.people_amount }}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="card bg-light mb-3" style="max-width: 20rem;">
+                      <div class="card-body">
+                        <p class="card-text">ФИО ответственного: {{ object.name_responsible }}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="card bg-light mb-3" style="max-width: 20rem;">
+                      <div class="card-body">
+                        <p class="card-text">Должность: {{ object.position_responsible }}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="card bg-light mb-3" style="max-width: 20rem;">
+                      <div class="card-body">
+                        <p class="card-text">Разряд: {{ object.rank_responsible }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
           {% endif %}
         </div>
       </form>
