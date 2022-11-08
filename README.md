@@ -21,7 +21,7 @@
 
 Графически мое решение выглядит так:
 
-<img src="/task/result.png">
+<img src="./task/result.png">
 
 ## Установка и запуск в dev-режиме
 
